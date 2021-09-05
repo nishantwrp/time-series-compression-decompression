@@ -41,15 +41,17 @@ class NeuralNetwork:
 train_dataset, test_dataset = load_dataset()
 neural_network = NeuralNetwork()
 
-neural_network.add_dense_input_layer(900, 900, "linear") # Input layer.
-neural_network.add_dense_hidden_layer(800, "linear")
-neural_network.add_dense_hidden_layer(700, "linear")
-neural_network.add_dense_hidden_layer(600, "linear")
-neural_network.add_dense_hidden_layer(450, "linear") # Middle layer. We'll break our model from here in phase 2.
-neural_network.add_dense_hidden_layer(600, "linear")
-neural_network.add_dense_hidden_layer(700, "linear")
-neural_network.add_dense_hidden_layer(800, "linear")
-neural_network.add_dense_hidden_layer(900, "linear") # Output Layer.
+neural_network.add_dense_input_layer(9, 9, "linear") # Input layer.
+neural_network.add_dense_hidden_layer(15, "linear")
+neural_network.add_dense_hidden_layer(12, "linear")
+neural_network.add_dense_hidden_layer(8, "linear")
+neural_network.add_dense_hidden_layer(6, "linear")
+neural_network.add_dense_hidden_layer(3, "linear") # Middle layer. We'll break our model from here in phase 2.
+neural_network.add_dense_hidden_layer(6, "linear")
+neural_network.add_dense_hidden_layer(8, "linear")
+neural_network.add_dense_hidden_layer(12, "linear")
+neural_network.add_dense_hidden_layer(15, "linear")
+neural_network.add_dense_hidden_layer(9, "linear") # Output Layer.
 
 neural_network.set_compilation_args("mae", "adam", ["mae"])
 neural_network.compile_model()
@@ -59,7 +61,7 @@ neural_network.print_model_summary()
 save_best_callback = neural_network.create_model_checkpoint_to_save_best()
 # This will save the the checkpoint with minimum loss alongside in a file with filename something like Weights-033--0.71620.hdf5. Ideally this checkpoint
 # should be used to make predictions now.
-neural_network.model.fit(train_dataset, train_dataset, epochs=500, batch_size=2, validation_split = 0.1, callbacks=[save_best_callback])
+neural_network.model.fit(train_dataset, train_dataset, epochs=100, batch_size=64, validation_split = 0.2, callbacks=[save_best_callback])
 
 # Code to make a prediction. As stated above a metric to decide the allowed error range needs to be discussed.
 weights_file = 'Weights-033--0.71620.hdf5' # EDIT THIS

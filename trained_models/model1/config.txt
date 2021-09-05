@@ -1,0 +1,42 @@
+Dataset
+
+dataset_5_digit_20_people_50_files_100points_9sensors
+
+
+Model
+
+
+NN_model = Sequential()
+
+# Input Model
+NN_model.add(Dense(9, input_dim = 9, activation='linear'))
+
+# Hidden Layers
+NN_model.add(Dense(15, activation='linear'))
+NN_model.add(Dense(12, activation='linear'))
+NN_model.add(Dense(8, activation='linear'))
+NN_model.add(Dense(6, activation='linear'))
+
+# Middle Layer
+NN_model.add(Dense(3, activation='linear'))
+
+# Hidden Layers
+NN_model.add(Dense(6, activation='linear'))
+NN_model.add(Dense(8, activation='linear'))
+NN_model.add(Dense(12, activation='linear'))
+NN_model.add(Dense(15, activation='linear'))
+
+# Output Layer
+NN_model.add(Dense(9, activation='linear'))
+
+NN_model.compile(loss='mae', optimizer='adam', metrics=['mae'])
+NN_model.summary()
+
+
+Train
+
+
+NN_model.fit(df, df, epochs=100, batch_size=64, validation_split = 0.2, callbacks=callbacks_list)
+
+
+Avg. MAE Loss -> 0.17461

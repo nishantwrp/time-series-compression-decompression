@@ -2,7 +2,7 @@ import os
 import csv
 
 NUM_PERSONS = 20
-DIGITS = [i for i in range(0, 1)]
+DIGITS = [i for i in range(0, 5)]
 NUM_FILES = 50
 NUM_SENSORS = 9
 MAX_DATA_POINTS = 100
@@ -13,7 +13,7 @@ FINAL_DATASET_DIRECTORY = os.path.join(os.getcwd(), "processed_dataset")
 if not os.path.exists(FINAL_DATASET_DIRECTORY):
     os.makedirs(FINAL_DATASET_DIRECTORY)
 
-DATASET_NAME = "dataset.csv"
+DATASET_NAME = "dataset_5_digit_20_people_50_files.csv"
 PROCESSED_DATASET_PATH = os.path.join(FINAL_DATASET_DIRECTORY, DATASET_NAME)
 
 all_rows = []
@@ -21,17 +21,9 @@ all_rows = []
 def process_dataset(path):
     with open(path, "r") as f:
         file_content = f.readlines()
-        features = []
-        per_sensor = []
 
         for line in range(1, MAX_DATA_POINTS+1):
-            per_sensor.append(file_content[line].strip().split(","))
-
-        for s in range(NUM_SENSORS):
-            for d in range(MAX_DATA_POINTS):
-                features.append(per_sensor[d][s])
-
-        all_rows.append(features)
+            all_rows.append(file_content[line].strip().split(","))
 
 for person in range(1, NUM_PERSONS+1):
     for digit in DIGITS:
