@@ -76,16 +76,7 @@ for layer in NN_encoder.layers:
   layer.set_weights([encoder_weights[counter], encoder_bias[counter]])
   counter += 1
 
-INPUT_CSV = os.path.join(os.getcwd(), "test_input.csv")
-OUTPUT_CSV = os.path.join(os.getcwd(), "test_output_mid_layer.csv")
-
-input_data = read_csv(INPUT_CSV, header=None)
-predictions = NN_encoder.predict(input_data)
-predictions = [['{0:.5f}'.format(x.item()) for x in y] for y in predictions]
-with open(OUTPUT_CSV, 'w', newline='') as file:
-    csv_writer = csv.writer(file)
-    for row in predictions:
-        csv_writer.writerow(row)
+NN_encoder.save_weights("encoder_weights.hdf5")
 
 # Decoder layer
 NN_decoder = Sequential()
@@ -110,13 +101,4 @@ for layer in NN_decoder.layers:
   layer.set_weights([decoder_weights[counter], decoder_bias[counter]])
   counter += 1
 
-INPUT_CSV = os.path.join(os.getcwd(), "test_output_mid_layer.csv")
-OUTPUT_CSV = os.path.join(os.getcwd(), "final_layer_output.csv")
-
-input_data = read_csv(INPUT_CSV, header=None)
-predictions = NN_decoder.predict(input_data)
-predictions = [['{0:.5f}'.format(x.item()) for x in y] for y in predictions]
-with open(OUTPUT_CSV, 'w', newline='') as file:
-    csv_writer = csv.writer(file)
-    for row in predictions:
-        csv_writer.writerow(row)
+NN_decoder.save_weights("decoder_weights.hdf5")
